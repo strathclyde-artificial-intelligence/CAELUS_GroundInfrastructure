@@ -1,9 +1,11 @@
 # CAELUS_GroundInfrastructure
 
+[![GroundInfrastructure Test](https://github.com/strathclyde-artificial-intelligence/CAELUS_GroundInfrastructure/actions/workflows/python-app.yml/badge.svg)](https://github.com/strathclyde-artificial-intelligence/CAELUS_GroundInfrastructure/actions/workflows/python-app.yml)
+
 # Dependencies
 To install the required dependencies issue `pip3 install -r requirements.txt`.
 
-# Credentials setup
+# Credentials setup (SmartSkies Bridge)
 To avoid pushing sensitive data to the GitHub repo, this project makes use of .env files for tests.
 Create a `.env.test` file in the root directory of the project.
 The file must contain the authentication information for the test accounts (CVMS and DIS).
