@@ -3,8 +3,6 @@ from GroundInfrastructure.DroneStateManager import DroneStateManager
 from GroundInfrastructure.Drone import Drone
 from GroundInfrastructure.DBAdapter import MockDBAdapter
 
-
-
 # Before all unit tests, generate a global drone state manager
 # and populate it with 10 drones.
 @pytest.fixture(scope='session')
