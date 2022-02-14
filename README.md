@@ -54,6 +54,12 @@ Make sure to interact with this object and not with Drones directly.
 Here's a UML diagram for the drone state manager:
 ![DroneStateManager](./docs_media/drone_state_manager.png)
 
-## Reuqesting for a bridge
+# Bridges
+A bridge is an interface useful to communicate with the SmartSkies API.
+It uses the DIS_API and CVMS_API objects to perform the communication.
+Every bridge is authenticated with one of the accounts in the credentials file (CVMS) and the shared dispatcher (DIS).
+
+## Requesting for a bridge
 The authentication manager can be used to request a bridge.
+Essentially, each bridge can be thought as an object to interact with the SmartSkies API through a specific account.
 To do so, provide the name of the bridge to the `authentication_manager.get_bridge_for_customer` function.
