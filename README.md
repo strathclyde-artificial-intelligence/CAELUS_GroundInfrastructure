@@ -2,6 +2,10 @@
 
 [![GroundInfrastructure Test](https://github.com/strathclyde-artificial-intelligence/CAELUS_GroundInfrastructure/actions/workflows/python-app.yml/badge.svg)](https://github.com/strathclyde-artificial-intelligence/CAELUS_GroundInfrastructure/actions/workflows/python-app.yml)
 
+This package is meant to be used as a ground infrastructure manager for the CAELUS project.
+It supports drone state tracking (syncs with local db), mission payload generation (to be used in tandem with the CAELUS Orchestrator),
+simplified SmartSkies communication through the SmartSkies bridge and Authenticator.
+
 # Dependencies
 To install the required dependencies issue `pip3 install -r requirements.txt`.
 
@@ -10,7 +14,7 @@ To avoid pushing sensitive data to the GitHub repo, this project makes use of .e
 Create a `.env.test` file in the root directory of the project.
 The file must contain the authentication information for the test accounts (CVMS and DIS).
 
-Here's an example `.env.test` file:
+Here's what to put in the `.env.test` file:
 
 ```
 DIS_GRANT_TYPE=<grant_type>
@@ -25,6 +29,7 @@ From the project's root folder, issue `python3 -m pytest`.
 # Authentication Manager
 The authentication manager is a Python package that provides a simple interface to the SmartSkies Bridge.
 To initialise it, provide a credentials file with schema:
+
 ```json
     [
         {
@@ -43,7 +48,10 @@ To initialise it, provide a credentials file with schema:
         }
     ]
 ```
-and a DIS_Credentials object.
+and a DIS_Credentials ([PySmartSkies](https://github.com/H3xept/CAELUS_SmartSkies)) object.
+
+Name can be any string that represents the customer.
+Other parameters can be obtained from ANRA.
 
 Here's a UML diagram for the authentication manager:
 ![AuthenticationManager](./docs_media/authentication_and_such.png)
