@@ -28,14 +28,14 @@ To initialise it, provide a credentials file with schema:
 ```json
     [
         {
-            "name": "CVMS",
+            "name": "Glasgow Royal Infirmary",
             "grant_type": "password",
             "client_id": "",
             "username": "",
             "password": ""
         },
         {
-            "name": "DIS",
+            "name": "Aberdeen Airport",
             "grant_type": "password",
             "client_id": "",
             "username": "",
