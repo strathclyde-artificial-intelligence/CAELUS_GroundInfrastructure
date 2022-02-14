@@ -16,17 +16,22 @@
 - put_drone_in_mainteinance(str)
 - take_drone_out_of_mainteinance(str)</panel_attributes><additional_attributes></additional_attributes></element><element><id>Relation</id><coordinates><x>480</x><y>440</y><w>100</w><h>110</h></coordinates><panel_attributes>lt=&lt;.
 &lt;&lt;References&gt;&gt;</panel_attributes><additional_attributes>10;10;10;90</additional_attributes></element><element><id>Relation</id><coordinates><x>300</x><y>440</y><w>210</w><h>110</h></coordinates><panel_attributes>lt=&lt;.
-&lt;&lt;References&gt;&gt;</panel_attributes><additional_attributes>10;10;10;80;190;80;190;90</additional_attributes></element><element><id>UMLClass</id><coordinates><x>220</x><y>160</y><w>210</w><h>290</h></coordinates><panel_attributes>Drone
+&lt;&lt;References&gt;&gt;</panel_attributes><additional_attributes>10;10;10;80;190;80;190;90</additional_attributes></element><element><id>UMLClass</id><coordinates><x>220</x><y>90</y><w>210</w><h>360</h></coordinates><panel_attributes>Drone
 --
 Available States
     - AVAILABLE
     - RESERVED
     - MISSION
     - MAINTEINANCE
+--
+Available Types
+    - QUADROTOR
+    - EVTOL_FW
 @staticmethods
 - from_sqlite(row): Drone
 --
 - to_sqlite() -&gt; [str]
+- get_type() -&gt; str
 - get_reservation_token: Maybe[str]
 - get_drone_id(): str
 - get_state(): str
@@ -37,12 +42,14 @@ Available States
 - put_drone_in_mainteinance()
 - return_drone_from_mainteinance()
 
-</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>450</x><y>350</y><w>210</w><h>100</h></coordinates><panel_attributes>Mission
+</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>450</x><y>320</y><w>210</w><h>130</h></coordinates><panel_attributes>Mission
 --
 @staticmethods
 - from_sqlite(row): Drone
 --
 - get_operation_id(): str
+- get_origin(): GroundInfrastructure
+- get_destination(): GroundInfrastructure
 - to_json(): str
 </panel_attributes><additional_attributes></additional_attributes></element><element><id>Relation</id><coordinates><x>280</x><y>570</y><w>120</w><h>40</h></coordinates><panel_attributes>lt=&lt;.
 &lt;&lt;Requires&gt;&gt;</panel_attributes><additional_attributes>10;20;100;20</additional_attributes></element><element><id>UMLClass</id><coordinates><x>80</x><y>560</y><w>210</w><h>50</h></coordinates><panel_attributes>DBAdapter

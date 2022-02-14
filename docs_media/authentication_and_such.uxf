@@ -25,7 +25,7 @@ Uses</panel_attributes><additional_attributes>110;10;110;60;10;60;10;150</additi
 @staticmethods
 - from_smartskies_vendor(SmartSkies.Vendor)
 --
-- get_vendor_id(): str</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>840</x><y>310</y><w>270</w><h>150</h></coordinates><panel_attributes>Hospital
+- get_vendor_id(): str</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>840</x><y>310</y><w>270</w><h>150</h></coordinates><panel_attributes>Charging Station
 -
 @staticmethods
 - from_smartskies_vendor(SmartSkies.Vendor)
