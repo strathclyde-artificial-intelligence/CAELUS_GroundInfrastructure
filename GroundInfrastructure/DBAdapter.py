@@ -15,9 +15,10 @@ class DBAdapter():
     def setup(self):
         """
         Setup the database.
-        Create a table if it doesn't exist for Drones and Missions
+        Create a table if it doesn't exist for Drones
         Drones should contain:
             - id
+            - type
             - state
             - reservation_token
             - mission_id
@@ -27,10 +28,11 @@ class DBAdapter():
         self.__execute("""
             CREATE TABLE IF NOT EXISTS Drones (
                 id TEXT PRIMARY KEY,
-                state TEXT,
-                reservation_token TEXT NULLABLE,
-                mission_id TEXT NULLABLE,
-                mission_json TEXT NULLABLE
+                type TEXT NOT NULL,
+                state TEXT NOT NULL,
+                reservation_token TEXT,
+                mission_id TEXT,
+                mission_json TEXT
             )
         """)
 
@@ -70,8 +72,8 @@ class DBAdapter():
         """
         self.__execute("""
             INSERT OR REPLACE INTO Drones
-            (id, state, reservation_token, mission_id, mission_json)
-            VALUES (?, ?, ?, ?, ?)
+            (id, type, state, reservation_token, mission_id, mission_json)
+            VALUES (?, ?, ?, ?, ?, ?)
         """, drone.to_sqlite())
 
     def get_drone_state(self, drone_id):

@@ -1,3 +1,5 @@
+from GroundInfrastructure.GroundInfrastructureHelpers import ground_infrastructure_from_json
+from .GroundInfrastructure import GroundInfrastructure
 from typing import List
 import json
 
@@ -9,12 +11,30 @@ class Mission():
     Contains fields:
     - operation_id
     """
-    def __init__(self, operation_id):
+    def __init__(self, operation_id, origin: GroundInfrastructure, destination: GroundInfrastructure):
         """
         Initialises a mission.
         :param operation_id: The operation id.
+        :param origin: The origin.
+        :param destination: The destination.
         """
         self.__operation_id = str(operation_id)
+        self.__origin = origin
+        self.__destination = destination
+
+    def get_origin(self):
+        """
+        Returns the mission's origin.
+        :return: The mission's origin.
+        """
+        return self.__origin
+
+    def get_destination(self):
+        """
+        Returns the mission's destination.
+        :return: The mission's destination.
+        """
+        return self.__destination
 
     def get_operation_id(self):
         """
@@ -28,7 +48,7 @@ class Mission():
         Serialises the mission into a JSON string.
         :return: The mission as a JSON string.
         """
-        return json.dumps({'operation_id': self.__operation_id})
+        return json.dumps({'operation_id': self.__operation_id, 'origin': self.__origin.to_json(), 'destination': self.__destination.to_json()})
 
     @staticmethod
     def from_json(json_string):
@@ -37,8 +57,8 @@ class Mission():
         :param json_string: The JSON string.
         :return: The mission.
         """
-        mission_json = json.loads(json_string) if json_string is not None else None
-        return Mission(mission_json['operation_id']) if mission_json is not None else None
+        mission = json.loads(json_string)
+        return Mission(mission['operation_id'], ground_infrastructure_from_json(mission['origin']), ground_infrastructure_from_json(mission['destination']))
 
     def __str__(self):
         """

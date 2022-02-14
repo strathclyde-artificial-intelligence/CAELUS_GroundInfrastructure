@@ -4,6 +4,9 @@ import json
 
 class Drone():
     
+    TYPE_QUADROTOR = 'QUADROTOR'
+    TYPE_EVTOL_FW = 'EVTOL_FW'
+
     AVAILABLE = 'AVAILABLE'
     RESERVED = 'RESERVED'
     MISSION = 'MISSION'
@@ -15,7 +18,8 @@ class Drone():
     
     CREATE TABLE IF NOT EXISTS Drones (
         id INTEGER PRIMARY KEY,
-        state TEXT,
+        type TEXT NOT NULL,
+        state TEXT NOT NULL,
         reservation_token TEXT,
         mission_id INTEGER,
         mission_json TEXT
@@ -40,12 +44,13 @@ class Drone():
         :param sqlite_row: The SQLite row.
         :return: The drone.
         """
-        drone = Drone(sqlite_row[0])
-        drone.__state = sqlite_row[1]
-        drone.__reservation_token = str(sqlite_row[2])
-        drone.__mission = Mission.from_json(sqlite_row[4])
+        mission_json = sqlite_row[5] if len(sqlite_row) > 5 else None
+        mission = Mission.from_json(mission_json) if mission_json is not None else None
+        drone = Drone(sqlite_row[0], sqlite_row[1], sqlite_row[2])
+        drone.__reservation_token = sqlite_row[3]
+        drone.__mission = mission
         return drone
-
+        
     def to_sqlite(self):
         """
         Serialises the drone into a SQLite row.
@@ -55,12 +60,13 @@ class Drone():
         mission_json = json.loads(self.__mission.to_json()) if self.__mission is not None else None
         return (
             self.__drone_id,
+            self.__type,
             self.__state,
             self.get_reservation_token(),
             mission_json['operation_id'] if mission_json is not None and 'operation_id' in mission_json else None,
             json.dumps(mission_json) if mission_json is not None else None)
 
-    def __init__(self, drone_id, state = AVAILABLE):
+    def __init__(self, drone_id, type, state = AVAILABLE):
         """
         Initialises a drone.
 
@@ -68,6 +74,7 @@ class Drone():
         :param state: The drone's state.
         """
         self.__drone_id = str(drone_id)
+        self.__type = type
         self.__state = state
         self.__mission: Mission = None
         self.__reservation_token = None
@@ -176,3 +183,11 @@ class Drone():
         :return: The drone as a string.
         """
         return 'Drone: ' + str(self.__drone_id) + ' ' + str(self.__state)
+    
+    def get_type(self):
+        """
+        Returns the drone's type.
+
+        :return: The drone's type.
+        """
+        return self.__type

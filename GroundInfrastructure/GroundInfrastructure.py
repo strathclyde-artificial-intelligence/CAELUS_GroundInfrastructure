@@ -1,4 +1,5 @@
 from typing import Tuple
+import json
 
 class GroundInfrastructure():
     
@@ -7,6 +8,13 @@ class GroundInfrastructure():
     TYPE_AIRPORT = 2
     TYPE_CHARGING_STATION = 3
     TYPE_HOSPITAL = 4
+
+    def to_json(self):
+        """
+        Serialises the ground infrastructure into a JSON string.
+        :return: The ground infrastructure as a JSON string.
+        """
+        return json.dumps({'id': self.__id, 'name': self.__name, 'lon': self.__lonlat[0], 'lat': self.__lonlat[1], 'type': self.__type})
 
     def __init__(self, id, name, lonlat: Tuple[float], type=TYPE_GENERIC):
         """
