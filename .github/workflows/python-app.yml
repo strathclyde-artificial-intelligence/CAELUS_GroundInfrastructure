@@ -43,3 +43,6 @@ jobs:
         DIS_CLIENT_ID: DMS
         DIS_USERNAME: ${{ secrets.dis_username }}
         DIS_PASSWORD: ${{ secrets.dis_password }}
+        CVMS_PHONE: ${{ secrets.CVMS_PHONE}}
+        CVMS_PASSWORD: ${{ secrets.CVMS_PASSWORD}}
+        CVMS_DEVICE_ID: ${{ secrets.CVMS_DEVICE_ID}}
