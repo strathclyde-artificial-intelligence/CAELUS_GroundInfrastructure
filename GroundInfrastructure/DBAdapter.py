@@ -15,7 +15,7 @@ class DBAdapter():
     def setup(self):
         """
         Setup the database.
-        Create a table if it doesn't exist for Drones
+        Create a table if it doesn't exist for Drones and Missions
         Drones should contain:
             - id
             - state

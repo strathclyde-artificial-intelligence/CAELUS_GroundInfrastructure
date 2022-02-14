@@ -1,6 +1,7 @@
 from .Mission import Mission
 from typing import Optional
 import json
+
 class Drone():
     
     AVAILABLE = 'AVAILABLE'
@@ -94,10 +95,6 @@ class Drone():
         :return: The drone's state.
         """
         return self.__state
-
-    # generate methods to make drone state transitions
-    # when reserving a drone, a reservation token is required
-    # when assigning a drone to a mission, a reservation token is required along with the mission
 
     def reserve(self, reservation_token):
         """

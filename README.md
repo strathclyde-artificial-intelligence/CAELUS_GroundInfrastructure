@@ -21,3 +21,39 @@ DIS_PASSWORD=<your_password>
 
 # Running tests
 From the project's root folder, issue `python3 -m pytest`.
+
+# Authentication Manager
+The authentication manager is a Python package that provides a simple interface to the SmartSkies Bridge.
+To initialise it, provide a credentials file with schema:
+```json
+    [
+        {
+            "name": "CVMS",
+            "grant_type": "password",
+            "client_id": "",
+            "username": "",
+            "password": ""
+        },
+        {
+            "name": "DIS",
+            "grant_type": "password",
+            "client_id": "",
+            "username": "",
+            "password": ""
+        }
+    ]
+```
+and a DIS_Credentials object.
+
+Here's a UML diagram for the authentication manager:
+![AuthenticationManager](./docs_media/authentication_and_such.png)
+
+# Drone State Manager
+This object is responsible for managing the state of the drone.
+Make sure to interact with this object and not with Drones directly.
+Here's a UML diagram for the drone state manager:
+![DroneStateManager](./docs_media/drone_state_manager.png)
+
+## Reuqesting for a bridge
+The authentication manager can be used to request a bridge.
+To do so, provide the name of the bridge to the `authentication_manager.get_bridge_for_customer` function.

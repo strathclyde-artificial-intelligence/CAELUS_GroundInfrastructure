@@ -1,0 +1,44 @@
+<diagram program="umletino" version="14.3.0"><zoom_level>10</zoom_level><element><id>UMLClass</id><coordinates><x>400</x><y>520</y><w>130</w><h>30</h></coordinates><panel_attributes>SmartSkies SDK</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>190</x><y>610</y><w>340</w><h>100</h></coordinates><panel_attributes>AuthenticationManager
+--
++ CVMS credentials file name
++ DIS_Credentials object
+-
+- get_bridge_for_customer(str) -&gt; SmartSkiesBridge
+- get_available_customers() -&gt; str</panel_attributes><additional_attributes></additional_attributes></element><element><id>Relation</id><coordinates><x>430</x><y>540</y><w>30</w><h>90</h></coordinates><panel_attributes>lt=&lt;&lt;-</panel_attributes><additional_attributes>10;10;10;70</additional_attributes></element><element><id>Relation</id><coordinates><x>440</x><y>540</y><w>30</w><h>90</h></coordinates><panel_attributes>lt=&lt;&lt;-</panel_attributes><additional_attributes>10;70;10;10</additional_attributes></element><element><id>Relation</id><coordinates><x>520</x><y>640</y><w>160</w><h>40</h></coordinates><panel_attributes>lt=&lt;.
+&lt;&lt;provides a&gt;&gt;</panel_attributes><additional_attributes>140;20;10;20</additional_attributes></element><element><id>UMLClass</id><coordinates><x>660</x><y>600</y><w>340</w><h>130</h></coordinates><panel_attributes>SmartSkiesBridge
+--
++ CVMS_Credentials object
++ DIS_Credentials object
+-
+- get_all_available_drone_ids(): [str]
+- get_products_for_vendor(): [SmartSkies.Product]
+- get_hospitals(): [Hospital]
+- get_charging_stations(): [ChargingStation]</panel_attributes><additional_attributes></additional_attributes></element><element><id>Relation</id><coordinates><x>820</x><y>450</y><w>130</w><h>170</h></coordinates><panel_attributes>lt=&lt;..
+Uses</panel_attributes><additional_attributes>110;10;110;60;10;60;10;150</additional_attributes></element><element><id>UMLClass</id><coordinates><x>670</x><y>150</y><w>120</w><h>100</h></coordinates><panel_attributes>GroundInfrastructure
+-
++ id: str
++ type: int
++ name: str
++ lonlat: [float]
+</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>580</x><y>350</y><w>190</w><h>100</h></coordinates><panel_attributes>Hospital
+-
+@staticmethods
+- from_smartskies_vendor(SmartSkies.Vendor)
+--
+- get_vendor_id(): str</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>840</x><y>310</y><w>270</w><h>150</h></coordinates><panel_attributes>Hospital
+-
+@staticmethods
+- from_smartskies_vendor(SmartSkies.Vendor)
+--
+- get_max_storing_capacity(): int
+- get_current_storing_capacity(): int
+- get_current_charging_capacity(): int
+- get_max_charging_capacity(): int
+- get_vendor_id(): str</panel_attributes><additional_attributes></additional_attributes></element><element><id>Relation</id><coordinates><x>740</x><y>240</y><w>210</w><h>90</h></coordinates><panel_attributes>lt=&lt;.
+</panel_attributes><additional_attributes>10;10;10;50;190;50;190;70</additional_attributes></element><element><id>Relation</id><coordinates><x>650</x><y>440</y><w>200</w><h>180</h></coordinates><panel_attributes>lt=&lt;..
+Uses</panel_attributes><additional_attributes>10;10;10;70;180;70;180;160</additional_attributes></element><element><id>Relation</id><coordinates><x>650</x><y>240</y><w>90</w><h>130</h></coordinates><panel_attributes>lt=&lt;.</panel_attributes><additional_attributes>70;10;70;100;10;100;10;110</additional_attributes></element><element><id>UMLClass</id><coordinates><x>520</x><y>150</y><w>120</w><h>100</h></coordinates><panel_attributes>Vendor
+&lt;Abstract class&gt;
+-
+- get_vendor_id(): str</panel_attributes><additional_attributes></additional_attributes></element><element><id>Relation</id><coordinates><x>560</x><y>240</y><w>120</w><h>130</h></coordinates><panel_attributes>lt=&lt;.
+</panel_attributes><additional_attributes>10;10;10;100;100;100;100;110</additional_attributes></element><element><id>Relation</id><coordinates><x>580</x><y>240</y><w>340</w><h>90</h></coordinates><panel_attributes>lt=&lt;.
+</panel_attributes><additional_attributes>10;10;10;50;320;50;320;70</additional_attributes></element></diagram>
