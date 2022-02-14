@@ -13,7 +13,6 @@ py==1.10.0
 pymongo==4.0.1
 pyparsing==2.4.7
 pyproj==3.2.1
-PySmartSkies @ git+https://github.com/H3xept/CAELUS_SmartSkies.git@bbb9729642e2021d569bdf9db3a5635692a22eff
 pytest==6.2.5
 python-dotenv==0.19.0
 requests==2.26.0

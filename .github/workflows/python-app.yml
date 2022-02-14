@@ -13,6 +13,12 @@ jobs:
 
     steps:
     - uses: actions/checkout@v2
+    - name: Get PySmartSkies
+    - uses: actions/checkout@v2
+      with:
+        repository: 'H3xept/CAELUS_SmartSkies'
+        token: '${{ secrets.PAT }}'
+        path: smartskies
     - name: Set up Python 3.9
       uses: actions/setup-python@v2
       with:
@@ -22,6 +28,7 @@ jobs:
         python -m pip install --upgrade pip
         pip install flake8 pytest
         if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
+        pip install ./smartskies
     - name: Lint with flake8
       run: |
         # stop the build if there are Python syntax errors or undefined names
