@@ -9,21 +9,25 @@ class ChargingStation(GroundInfrastructure, Vendor):
     """
 
     @staticmethod
-    def from_json(json_string) -> 'ChargingStation':
+    def from_json(charging_station) -> 'ChargingStation':
         """
         Creates a charging station from a json string.
-        :param json_string: The json string.
+        :param charging_station: The json object.
         :return: The charging station.
         """
-        charging_station = json.loads(json_string)
-        return ChargingStation(charging_station['id'], charging_station['name'], [charging_station['lon'], charging_station['lat']], charging_station['max_storing_capacity'], charging_station['max_charging_capacity'])
+        return ChargingStation(charging_station['id'], charging_station['name'], [charging_station['location_long'], charging_station['location_lat']], charging_station['address'], charging_station['max_storing_capacity'], charging_station['max_charging_capacity'])
 
-    def to_json(self) -> str:
+    def to_json(self):
         """
-        Returns the charging station as a json string.
-        :return: The charging station as a json string.
+        Returns the charging station as a json compliant dictionary.
+        :return: The charging station as a json compliant dictionary.
         """
-        return json.dumps({"id": self.get_id(), "name": self.get_name(), "lon": self.get_lonlat()[0], "lat": self.get_lonlat()[1], "max_storing_capacity": self.get_max_storing_capacity(), "max_charging_capacity": self.get_max_charging_capacity(), "type": self.get_type()})
+        return {
+            **super().to_json(),
+            "max_storing_capacity": self.get_max_storing_capacity(),
+            "max_charging_capacity": self.get_max_charging_capacity(),
+            "type": self.get_type()
+        }
         
     @staticmethod
     def from_smartskies_vendor(vendor: SmartSkiesVendor) -> 'ChargingStation':
@@ -35,9 +39,9 @@ class ChargingStation(GroundInfrastructure, Vendor):
         MAX_STORING_CAPACITY = 100
         MAX_CHARGING_CAPACITY = 100
         
-        return ChargingStation(vendor.vendor_id, vendor.name, [vendor.location_long, vendor.location_lat], MAX_STORING_CAPACITY, MAX_CHARGING_CAPACITY)
+        return ChargingStation(vendor.vendor_id, vendor.name, [vendor.location_long, vendor.location_lat], vendor.address, MAX_STORING_CAPACITY, MAX_CHARGING_CAPACITY)
 
-    def __init__(self, id, name, lonlat, max_storing_capacity, max_charging_capacity):
+    def __init__(self, id, name, lonlat, address, max_storing_capacity, max_charging_capacity):
         """
         Initialises a charging station.
         :param id: The id of the charging station.
@@ -46,7 +50,7 @@ class ChargingStation(GroundInfrastructure, Vendor):
         :param max_storing_capacity: The storing capacity of the charging station.
         :param max_charging_capacity: The charging capacity of the charging station.
         """
-        super().__init__(id, name, lonlat, type=GroundInfrastructure.TYPE_CHARGING_STATION)
+        super().__init__(id, name, lonlat, address, type=GroundInfrastructure.TYPE_CHARGING_STATION)
         self.__max_storing_capacity = max_storing_capacity
         self.__max_charging_capacity = max_charging_capacity
         self.__currently_storing = []

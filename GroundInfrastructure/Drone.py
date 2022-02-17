@@ -46,7 +46,7 @@ class Drone():
         """
         mission_json = sqlite_row[5] if len(sqlite_row) > 5 else None
         mission = Mission.from_json(mission_json) if mission_json is not None else None
-        drone = Drone(sqlite_row[0], sqlite_row[1], sqlite_row[2])
+        drone = Drone(sqlite_row[0], sqlite_row[1], sqlite_row[6], state=sqlite_row[2])
         drone.__reservation_token = sqlite_row[3]
         drone.__mission = mission
         return drone
@@ -64,9 +64,10 @@ class Drone():
             self.__state,
             self.get_reservation_token(),
             mission_json['operation_id'] if mission_json is not None and 'operation_id' in mission_json else None,
-            json.dumps(mission_json) if mission_json is not None else None)
+            json.dumps(mission_json) if mission_json is not None else None,
+            self.__config_name)
 
-    def __init__(self, drone_id, type, state = AVAILABLE):
+    def __init__(self, drone_id, type, config_name, state = AVAILABLE):
         """
         Initialises a drone.
 
@@ -78,6 +79,7 @@ class Drone():
         self.__state = state
         self.__mission: Mission = None
         self.__reservation_token = None
+        self.__config_name = config_name
 
     def get_reservation_token(self):
         """
@@ -191,3 +193,11 @@ class Drone():
         :return: The drone's type.
         """
         return self.__type
+
+    def get_config_name(self):
+        """
+        Returns the drone's config name.
+
+        :return: The drone's config name.
+        """
+        return self.__config_name

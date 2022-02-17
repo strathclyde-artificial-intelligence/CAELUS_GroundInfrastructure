@@ -12,14 +12,12 @@ load_dotenv('.env.test')
 data = [
     {
         "name": "customer1",
-        "lonlat": [1.0, 1.0],
         "phone": os.environ['CVMS_PHONE'],
         "password": os.environ['CVMS_PASSWORD'],
         "device_id": os.environ['CVMS_DEVICE_ID']
     },
     {
         "name": "customer2",
-        "lonlat": [1.0, 1.0],
         "phone": os.environ['CVMS_PHONE'],
         "password": os.environ['CVMS_PASSWORD'],
         "device_id": os.environ['CVMS_DEVICE_ID']

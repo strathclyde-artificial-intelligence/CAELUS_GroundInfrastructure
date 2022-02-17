@@ -9,9 +9,8 @@ class Hospital(GroundInfrastructure, Vendor):
     """
     
     @staticmethod
-    def from_json(json_string):
-        hospital = json.loads(json_string)
-        return Hospital(hospital['id'], hospital['name'], [hospital['lon'], hospital['lat']])
+    def from_json(hospital):
+        return Hospital(hospital['id'], hospital['name'], [hospital['location_long'], hospital['location_lat']], hospital['address'])
 
     @staticmethod
     def from_smartskies_vendor(vendor: SmartSkiesVendor):
@@ -20,13 +19,16 @@ class Hospital(GroundInfrastructure, Vendor):
         :param vendor: The smart skies vendor.
         :return: The hospital.
         """
-        return Hospital(vendor.vendor_id, vendor.name, [vendor.location_long, vendor.location_lat])
+        return Hospital(vendor.vendor_id, vendor.name, [vendor.location_long, vendor.location_lat], vendor.address)
 
-    def __init__(self, id, name, lonlat):
-        super().__init__(str(id), name, lonlat, GroundInfrastructure.TYPE_HOSPITAL)
+    def __init__(self, id, name, lonlat, address):
+        super().__init__(str(id), name, lonlat, address, GroundInfrastructure.TYPE_HOSPITAL)
 
-    def to_json(self) -> str:
-        return json.dumps({"id": self.get_id(), "name": self.get_name(), "lon": self.get_lonlat()[0], "lat": self.get_lonlat()[1], "type": self.get_type()})
+    def to_json(self):
+        return {
+            **super().to_json(),
+            "type": self.get_type()
+        }
 
     def get_vendor_id(self):
         return self.get_id()

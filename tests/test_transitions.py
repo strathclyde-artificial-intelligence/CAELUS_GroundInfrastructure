@@ -12,7 +12,7 @@ def drone_state_manager():
     from uuid import uuid4
 
     # Create a list of drones with UUID4s
-    drones = [Drone(uuid4(), Drone.TYPE_QUADROTOR) for _ in range(10)]
+    drones = [Drone(uuid4(), Drone.TYPE_QUADROTOR, "config_0") for _ in range(10)]
 
     # Create a mock database adapter
     db_adapter = MockDBAdapter()

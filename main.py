@@ -38,7 +38,7 @@ def temporary_credentials_file():
     return mock_credentials
 
 # Create a list of drones with UUID4s
-drones = [Drone(uuid4(), Drone.TYPE_QUADROTOR) for _ in range(10)]
+drones = [Drone(uuid4(), Drone.TYPE_QUADROTOR, "config_0") for _ in range(10)]
 temporary_db = DBAdapter(":memory:")
 
 dis_credentials = DIS_Credentials(

@@ -1,6 +1,6 @@
 from GroundInfrastructure.GroundInfrastructureHelpers import ground_infrastructure_from_json
 from .GroundInfrastructure import GroundInfrastructure
-from typing import List
+from typing import List, Any, Dict
 import json
 
 class Mission():
@@ -11,7 +11,7 @@ class Mission():
     Contains fields:
     - operation_id
     """
-    def __init__(self, operation_id, origin: GroundInfrastructure, destination: GroundInfrastructure):
+    def __init__(self, operation_id, origin: GroundInfrastructure, destination: GroundInfrastructure, payload: Dict[str, Any]):
         """
         Initialises a mission.
         :param operation_id: The operation id.
@@ -21,6 +21,7 @@ class Mission():
         self.__operation_id = str(operation_id)
         self.__origin = origin
         self.__destination = destination
+        self.__payload = payload
 
     def get_origin(self):
         """
@@ -28,6 +29,13 @@ class Mission():
         :return: The mission's origin.
         """
         return self.__origin
+
+    def get_payload(self):
+        """
+        Returns the mission's payload.
+        :return: The mission's payload.
+        """
+        return self.__payload
 
     def get_destination(self):
         """
@@ -48,7 +56,12 @@ class Mission():
         Serialises the mission into a JSON string.
         :return: The mission as a JSON string.
         """
-        return json.dumps({'operation_id': self.__operation_id, 'origin': self.__origin.to_json(), 'destination': self.__destination.to_json()})
+        return json.dumps({
+            'operation_id': self.__operation_id,
+            'origin': self.__origin.to_json(),
+            'destination': self.__destination.to_json(),
+            'payload': self.__payload
+        })
 
     @staticmethod
     def from_json(json_string):
@@ -58,7 +71,7 @@ class Mission():
         :return: The mission.
         """
         mission = json.loads(json_string)
-        return Mission(mission['operation_id'], ground_infrastructure_from_json(mission['origin']), ground_infrastructure_from_json(mission['destination']))
+        return Mission(mission['operation_id'], ground_infrastructure_from_json(mission['origin']), ground_infrastructure_from_json(mission['destination']), mission['payload'])
 
     def __str__(self):
         """

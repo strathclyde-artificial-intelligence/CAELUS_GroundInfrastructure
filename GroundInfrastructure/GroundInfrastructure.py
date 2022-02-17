@@ -1,5 +1,6 @@
 from typing import Tuple
 import json
+from PySmartSkies.Models.Vendor import Vendor
 
 class GroundInfrastructure():
     
@@ -14,9 +15,16 @@ class GroundInfrastructure():
         Serialises the ground infrastructure into a JSON string.
         :return: The ground infrastructure as a JSON string.
         """
-        return json.dumps({'id': self.__id, 'name': self.__name, 'lon': self.__lonlat[0], 'lat': self.__lonlat[1], 'type': self.__type})
+        return {
+            'id': self.__id,
+            'name': self.__name,
+            'location_long': self.__lonlat[0],
+            'location_lat': self.__lonlat[1],
+            'type': self.__type,
+            'address': self.__address
+        }
 
-    def __init__(self, id, name, lonlat: Tuple[float], type=TYPE_GENERIC):
+    def __init__(self, id, name, lonlat: Tuple[float], address, type=TYPE_GENERIC):
         """
         Initialises a ground infrastructure.
         :param id: The ID.
@@ -27,6 +35,7 @@ class GroundInfrastructure():
         self.__name = name
         self.__type = type
         self.__lonlat = lonlat
+        self.__address = address
 
     def get_id(self):
         """
@@ -55,3 +64,24 @@ class GroundInfrastructure():
         :return: The longitude and latitude.
         """
         return self.__lonlat
+
+    def get_address(self):
+        """
+        Returns the address.
+        :return: The address.
+        """
+        return self.__address
+
+    def to_smartskies_vendor(self):
+        """
+        Converts the ground infrastructure into a smart skies vendor.
+        :return: The smart skies vendor.
+        """
+        dictionary = self.to_json()
+        dictionary.update({
+            "location_text": "",
+            "uuid": None,
+            "vendor_id": None,
+            "locationList": None
+        })
+        return Vendor(dictionary)

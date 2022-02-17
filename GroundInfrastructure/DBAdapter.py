@@ -23,6 +23,7 @@ class DBAdapter():
             - reservation_token
             - mission_id
             - mission json
+            - config_name
         """
         self.__connect()
         self.__execute("""
@@ -32,7 +33,8 @@ class DBAdapter():
                 state TEXT NOT NULL,
                 reservation_token TEXT,
                 mission_id TEXT,
-                mission_json TEXT
+                mission_json TEXT,
+                config_name TEXT NOT NULL
             )
         """)
 
@@ -72,8 +74,8 @@ class DBAdapter():
         """
         self.__execute("""
             INSERT OR REPLACE INTO Drones
-            (id, type, state, reservation_token, mission_id, mission_json)
-            VALUES (?, ?, ?, ?, ?, ?)
+            (id, type, state, reservation_token, mission_id, mission_json, config_name)
+            VALUES (?, ?, ?, ?, ?, ?, ?)
         """, drone.to_sqlite())
 
     def get_drone_state(self, drone_id):
