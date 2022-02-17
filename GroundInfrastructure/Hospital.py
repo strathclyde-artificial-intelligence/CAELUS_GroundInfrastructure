@@ -1,28 +1,22 @@
+from .ChargingStation import ChargingStation
 from .GroundInfrastructure import GroundInfrastructure
 from .Vendor import Vendor
 from PySmartSkies.Models.Vendor import Vendor as SmartSkiesVendor
 import json
 
-class Hospital(GroundInfrastructure, Vendor):
+class Hospital(ChargingStation, Vendor):
     """
     A hospital.
     """
+    @classmethod
+    def from_json(cls, charging_station) -> 'ChargingStation':
+        return super().from_json({"max_storing_capacity": 0, "max_charging_capacity": 0, **charging_station})
+        
+    def __init__(self, id, name, lonlat, address, max_storing_capacity = 0, max_charging_capacity = 0):
+        super().__init__(str(id), name, lonlat, address, max_storing_capacity, max_charging_capacity)
     
-    @staticmethod
-    def from_json(hospital):
-        return Hospital(hospital['id'], hospital['name'], [hospital['location_long'], hospital['location_lat']], hospital['address'])
-
-    @staticmethod
-    def from_smartskies_vendor(vendor: SmartSkiesVendor):
-        """
-        Creates a hospital from a smart skies vendor.
-        :param vendor: The smart skies vendor.
-        :return: The hospital.
-        """
-        return Hospital(vendor.vendor_id, vendor.name, [vendor.location_long, vendor.location_lat], vendor.address)
-
-    def __init__(self, id, name, lonlat, address):
-        super().__init__(str(id), name, lonlat, address, GroundInfrastructure.TYPE_HOSPITAL)
+    def get_type(self):
+        return GroundInfrastructure.TYPE_HOSPITAL
 
     def to_json(self):
         return {
