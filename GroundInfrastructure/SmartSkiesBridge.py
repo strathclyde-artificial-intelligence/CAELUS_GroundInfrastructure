@@ -82,7 +82,7 @@ class SmartSkiesBridge():
         drone: Drone,
         products: List[SmartSkiesProduct],
         mission_starts_at_unix: str = str(time.time()),
-        group_id: str = str(uuid4())):
+        group_id: str = str(uuid4())) -> Mission:
 
         # Place an order for the products
         orders = self.__cvms_api.place_order(seller.to_smartskies_vendor(), products)
