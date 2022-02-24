@@ -19,6 +19,7 @@ from .Vendor import Vendor
 from .ChargingStation import ChargingStation
 from .Hospital import Hospital
 from .GroundInfrastructure import GroundInfrastructure
+from datetime import datetime, timedelta
 
 class SmartSkiesBridge():
 
@@ -88,7 +89,10 @@ class SmartSkiesBridge():
         orders = self.__cvms_api.place_order(seller.to_smartskies_vendor(), products)
         self.__cvms_api.checkout_orders(orders)
         deliveries, _, smartskies_drones, control_areas = self.__dis_api.get_requested_deliveries()
-        
+        deliveries = sorted(deliveries, key=
+            lambda d: datetime.strptime(d.submit_time, '%Y-%m-%dT%H:%M:%S')
+        )
+
         if len(deliveries) == 0:
             raise Exception('Smartskies failed in creating delivery. Hospitals may be too far apart!')
 
@@ -98,8 +102,8 @@ class SmartSkiesBridge():
         chosen_drone = chosen_drone[0]
         
         # round to nearest second 
-        effective_time_begin = datetime.datetime.fromtimestamp(int(mission_starts_at_unix.split('.')[0]))
-        effective_time_begin += datetime.timedelta(minutes=1)
+        effective_time_begin = datetime.fromtimestamp(int(mission_starts_at_unix.split('.')[0]))
+        effective_time_begin += timedelta(minutes=1)
 
         payload_mass = sum(map(lambda product: product.per_item_weight, products))
         drone_config_file = drone.get_config_name()
