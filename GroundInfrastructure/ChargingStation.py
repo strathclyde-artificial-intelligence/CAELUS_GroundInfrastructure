@@ -46,7 +46,7 @@ class ChargingStation(GroundInfrastructure, Vendor):
         MAX_STORING_CAPACITY = 100
         MAX_CHARGING_CAPACITY = 100
         
-        return cls(vendor.vendor_id, vendor.name, [vendor.location_long, vendor.location_lat], vendor.address, MAX_STORING_CAPACITY, MAX_CHARGING_CAPACITY)
+        return cls(vendor.id, vendor.name, [vendor.location_long, vendor.location_lat], vendor.address, MAX_STORING_CAPACITY, MAX_CHARGING_CAPACITY)
 
     def __init__(self, id, name, lonlat, address, max_storing_capacity, max_charging_capacity):
         """

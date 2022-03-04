@@ -26,6 +26,7 @@ def setup_module():
         os.environ['CVMS_PASSWORD'],
         os.environ['CVMS_DEVICE_ID']
     )
+
     return SmartSkiesBridge(dis_credentials, cvms_credentials)
 
 def test_get_all_available_drone_ids(bridge):
@@ -52,7 +53,8 @@ def test_create_simple_mission(bridge: SmartSkiesBridge):
     # TODO auto sync drone with SmartSkies drones
     drone = Drone(drone_id, Drone.TYPE_QUADROTOR, "config_0")
     # get a seller
-    seller = bridge.get_hospitals()[0]
+    royal_informary_id = 48
+    seller = [h for h in bridge.get_hospitals() if int(h.get_id()) == royal_informary_id][0]
     # get a product
     products = [bridge.get_products_for_vendor(seller)[0]]
     # create a mission
