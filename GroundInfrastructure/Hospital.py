@@ -10,7 +10,7 @@ class Hospital(ChargingStation, Vendor):
     """
     @classmethod
     def from_json(cls, charging_station) -> 'ChargingStation':
-        return super().from_json({"max_storing_capacity": 0, "max_charging_capacity": 0, **charging_station})
+        return super().from_json({"maxStorageCapacity": 0, "maxChargingCapacity": 0, **charging_station})
         
     def __init__(self, id, name, lonlat, address, max_storing_capacity = 0, max_charging_capacity = 0):
         super().__init__(str(id), name, lonlat, address, max_storing_capacity, max_charging_capacity)

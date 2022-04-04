@@ -20,8 +20,8 @@ class ChargingStation(GroundInfrastructure, Vendor):
             charging_station['name'],
             [charging_station['location_long'], charging_station['location_lat']],
             charging_station['address'],
-            charging_station['max_storing_capacity'],
-            charging_station['max_charging_capacity']
+            charging_station['maxStorageCapacity'],
+            charging_station['maxChargingCapacity']
         )
 
     def to_json(self):
@@ -31,8 +31,8 @@ class ChargingStation(GroundInfrastructure, Vendor):
         """
         return {
             **super().to_json(),
-            "max_storing_capacity": self.get_max_storing_capacity(),
-            "max_charging_capacity": self.get_max_charging_capacity(),
+            "maxStorageCapacity": self.get_max_storing_capacity(),
+            "maxChargingCapacity": self.get_max_charging_capacity(),
             "type": self.get_type()
         }
         
@@ -56,8 +56,8 @@ class ChargingStation(GroundInfrastructure, Vendor):
         :param id: The id of the charging station.
         :param name: The name of the charging station.
         :param lonlat: The longitude and latitude of the charging station.
-        :param max_storing_capacity: The storing capacity of the charging station.
-        :param max_charging_capacity: The charging capacity of the charging station.
+        :param maxStorageCapacity: The storing capacity of the charging station.
+        :param maxChargingCapacity: The charging capacity of the charging station.
         """
         super().__init__(id, name, lonlat, address, type=GroundInfrastructure.TYPE_CHARGING_STATION)
         self.__max_storing_capacity = max_storing_capacity

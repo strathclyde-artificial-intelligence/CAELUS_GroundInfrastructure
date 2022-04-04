@@ -11,7 +11,7 @@ def ground_infrastructure_from_json(json_object):
     """
     ground_infrastructure = json_object
     _type = ground_infrastructure['type']
-    if _type == GroundInfrastructure.TYPE_CHARGING_STATION or ground_infrastructure['isChargingStation']:
+    if _type == GroundInfrastructure.TYPE_CHARGING_STATION:
         return ChargingStation.from_json(json_object)
     elif _type == GroundInfrastructure.TYPE_HOSPITAL:
         return Hospital.from_json(json_object)
