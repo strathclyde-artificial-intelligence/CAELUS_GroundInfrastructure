@@ -43,8 +43,10 @@ class ChargingStation(GroundInfrastructure, Vendor):
         :param vendor: The smart skies vendor.
         :return: The charging station.
         """
-        MAX_STORING_CAPACITY = 100
-        MAX_CHARGING_CAPACITY = 100
+        ## print("================ STORING AND CHARGING")
+        MAX_STORING_CAPACITY = vendor.maxStorageCapacity
+        MAX_CHARGING_CAPACITY = vendor.maxChargingCapacity
+        ## print("================ STORING AND CHARGING: " + str(MAX_STORING_CAPACITY))
         
         return cls(vendor.id, vendor.name, [vendor.location_long, vendor.location_lat], vendor.address, MAX_STORING_CAPACITY, MAX_CHARGING_CAPACITY)
 
