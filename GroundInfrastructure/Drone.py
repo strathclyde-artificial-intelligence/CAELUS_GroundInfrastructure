@@ -23,6 +23,7 @@ class Drone():
         reservation_token TEXT,
         mission_id INTEGER,
         mission_json TEXT
+        infrastructure_id INTEGER
     )
 
     A drone can have various states:
@@ -49,6 +50,7 @@ class Drone():
         drone = Drone(sqlite_row[0], sqlite_row[1], sqlite_row[6], state=sqlite_row[2])
         drone.__reservation_token = sqlite_row[3]
         drone.__mission = mission
+        drone.__infrastructure_id = sqlite_row[7]
         return drone
         
     def to_sqlite(self):
@@ -65,9 +67,10 @@ class Drone():
             self.get_reservation_token(),
             mission_json['operation_id'] if mission_json is not None and 'operation_id' in mission_json else None,
             json.dumps(mission_json) if mission_json is not None else None,
-            self.__config_name)
+            self.__config_name,
+            self.__infrastructure_id)
 
-    def __init__(self, drone_id, type, config_name, state = AVAILABLE):
+    def __init__(self, drone_id, type, config_name, state = AVAILABLE, infrastructure_id=None):
         """
         Initialises a drone.
 
@@ -80,6 +83,7 @@ class Drone():
         self.__mission: Mission = None
         self.__reservation_token = None
         self.__config_name = config_name
+        self.__infrastructure_id = infrastructure_id
 
     def get_reservation_token(self):
         """
@@ -104,6 +108,14 @@ class Drone():
         :return: The drone's state.
         """
         return self.__state
+
+    def get_infrastructure_id(self):
+        """
+        Returns the drone's current location.
+
+        :return: The drone's location as infrastructure id.
+        """
+        return self.__infrastructure_id
 
     def reserve(self, reservation_token):
         """
@@ -133,17 +145,20 @@ class Drone():
         if self.__reservation_token == reservation_token:
             self.__mission = mission
             self.__state = Drone.MISSION
+            self.__infrastructure_id = None
         else:
             raise Exception('Invalid reservation token.')
     
     def release_drone(self, reservation_token):
         """
-        Releases the drone from reserved state.
+        Releases the drone from reserved or mission state.
 
         :param reservation_token: The reservation token.
         """
         reservation_token = str(reservation_token)
         if self.__reservation_token == reservation_token:
+            if self.__state == Drone.MISSION and self.__infrastructure_id == None:
+                self.__infrastructure_id = self.__mission.get_destination().get_id()
             self.__state = Drone.AVAILABLE
             self.__reservation_token = None
             self.__remove_mission_details()
@@ -184,7 +199,7 @@ class Drone():
 
         :return: The drone as a string.
         """
-        return 'Drone: ' + str(self.__drone_id) + ' ' + str(self.__state)
+        return 'Drone: ' + str(self.__drone_id) + ' ' + str(self.__state) + ' ' + str(self.__type) + ' ' + str(self.__infrastructure_id)
     
     def get_type(self):
         """

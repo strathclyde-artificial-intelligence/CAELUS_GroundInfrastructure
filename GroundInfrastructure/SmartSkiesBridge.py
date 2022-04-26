@@ -48,6 +48,13 @@ class SmartSkiesBridge():
         """
         return list(map(lambda drone: drone.registration_number, self.__dis_api.get_requested_deliveries()[2]))
 
+    def get_all_available_drones(self):
+        """
+        Use the get_requested_deliveries method from the DIS_API
+        to get the available drones (3rd return value)
+        """
+        return list(self.__dis_api.get_requested_deliveries()[2])
+
     def find_ground_infrastructure_by_location(self, lonlat: List[float]) -> GroundInfrastructure:
         """
         Use the get_charging_stations method from the CVMS_API
